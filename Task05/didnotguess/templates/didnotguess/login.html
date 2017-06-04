@@ -1,0 +1,11 @@
+{{ message }}
+<form action="{% url 'didnotguess:loginuser' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" id="name" />
+    <label for="name">Username</label><br />
+    <input type="password" name="userpassword" id="password" />
+    <label for="password">Password</label><br />
+    <input type="submit" value="Log in" /><br />
+</form>
+
+<a href="{% url 'didnotguess:registration' %}">Registration</a>
