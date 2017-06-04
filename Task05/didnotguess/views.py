@@ -85,10 +85,7 @@ def gen_random_password(request):
     return generator_view(request, 'gen_random_password', True)
     
 def gen_random_password_list(request):
-    if not request.user.is_authenticated:
-        return redirect('didnotguess:login')
-    request.session['request_type'] = 'gen_random_password_list'
-    return render(request, 'didnotguess/app.html', {'type': 'gen_random_password_list'})
+    return generator_view(request, 'gen_random_password_list', False)
     
 def execution(request):
     if not request.user.is_authenticated:
@@ -116,7 +113,7 @@ def execution(request):
             if type == 'get_random_word_from_text':
                 try:
                     text = request.POST['text']
-                except:
+                except (KeyError):
                     return redirect("didnotguess:%s" % type)
                 else:
                     words = text.split()
@@ -125,15 +122,27 @@ def execution(request):
                     return redirect('didnotguess:%s' % type)
             else:
                 if type == 'gen_random_password':
-                    request.session['result'] = get_random_password()
+                    request.session['result'] = random_password()
                     return redirect("didnotguess:%s" % type)
-                
-                
-                
+                else:
+                    if type == 'gen_random_password_list':
+                        try:
+                            count = request.POST['count']
+                        except (KeyError):
+                            return redirect('didnotguess:%s' % type)
+                        else:
+                            result = []
+                            for index in range(int(count)):
+                                result.append(random_password())
+                            request.session['result'] = result
+                            return redirect('didnotguess:%s' % type)
                 
                 
 def random_password():
-    alphabet = string.ascii_letters + string.digits + "!@#$%^&*()_+=.,`~'"
+    alphabet = string.ascii_letters + string.digits + "!@#$%^&*()_+~"
     length = random.randint(8, 20)
-    password = ''.join(secrets.choice(alphabet) for i in range(length))
+    password = ''
+    for index in range(length):
+        ind = random.randint(0, len(alphabet) - 1)
+        password += alphabet[ind]
     return password                

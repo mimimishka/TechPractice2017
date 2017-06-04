@@ -38,6 +38,21 @@
                 {% endif %}
                 <a href="{% url 'didnotguess:execution' %}">Generate password</a>
             {% endif %}
+                {% if type == 'gen_random_password_list' %}
+                    {% if result %}
+                        <ul>
+                        {% for passwd in result %}
+                        <li>{{ passwd }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <form action="{% url 'didnotguess:execution' %}" method="post">
+                    {% csrf_token %}
+                    <label for="count">Passwords' count</label><br />
+                    <input type="number" id="count" name="count" /><br />
+                    <input type="submit" value="Generate passwords' list" /><br />
+                    </form>
+                {% endif %}
         {% endif %}
     {% endif %}
 {% endif %}
