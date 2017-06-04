@@ -122,7 +122,7 @@ def execution(request):
                     return redirect('didnotguess:%s' % type)
             else:
                 if type == 'gen_random_password':
-                    request.session['result'] = random_password()
+                    request.session['result'] = random_password()  # change get_random_password() to random_password() GORDUN
                     return redirect("didnotguess:%s" % type)
                 else:
                     if type == 'gen_random_password_list':

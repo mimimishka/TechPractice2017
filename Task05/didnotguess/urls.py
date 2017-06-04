@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from . import views
 
 app_name = 'didnotguess'
@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^random_password/$', views.gen_random_password, name="gen_random_password"),
     url(r'^random_password_list/$', views.gen_random_password_list, name="gen_random_password_list"),
     url(r'^execution/$', views.execution, name="execution"),
+
+    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
 ]
