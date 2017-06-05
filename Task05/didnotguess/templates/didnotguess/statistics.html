@@ -1,0 +1,14 @@
+<a href="{% url 'didnotguess:index' %}">Back</a>
+<h3>
+{% if all_requests_count %}
+    Total requests' count for {{ username }} is {{ all_requests_count }}
+{% else %}
+    There are no registered requests for {{ username }} yet
+{% endif %}
+</h3><br />
+{% if type_requests %}
+    <h3>Type requests for {{ username }}</h3>
+    {% for t_r in type_requests %}
+    <p>{{ t_r }}</p><br />
+    {% endfor %}
+{% endif %}
