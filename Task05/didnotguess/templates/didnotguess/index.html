@@ -1,3 +1,25 @@
+
+{#faceboock sdk script (A.G. 05.06.2017)#}
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '928983360574963',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <h1>Hello, {{ user.username }}!</h1>
 
 <a href="{% url 'didnotguess:gen_random_number' %}">Generate random number</a><br />

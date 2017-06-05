@@ -113,18 +113,50 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'social.backends.github.GithubOAuth2',
+    'social.backends.instagram.InstagramOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     # 'django.contrib.auth.backends.ModelBackend',
 )
+# SOCIAL_AUTH_PIPELINE = (
+#     'social.pipeline.social_auth.associate_by_email',
+#     'social.pipeline.social_auth.social_user',
+#     'social.pipeline.user.get_username',
+#     'social.pipeline.user.create_user',
+#     'social.pipeline.social_auth.associate_user',
+#     'social.pipeline.social_auth.load_extra_data',
+#     'social.pipeline.user.user_details',
+#     'accounts.social_auth_pipeline.get_profile_data', # custom
+#     'accounts.social_auth_pipeline.get_profile_avatar', # custom
+# )
 
+SOCIAL_AUTH_PIPELINE = [  # Note: Sequence of functions matters here.
+    'social.pipeline.social_auth.social_details',  # 0
+    'social.pipeline.social_auth.social_uid',  # 1
+    'social.pipeline.social_auth.auth_allowed',  # 2
+    'social.pipeline.social_auth.social_user',  # 3
+    'social.pipeline.user.get_username',  # 4
+    'social.pipeline.social_auth.associate_by_email',  # 5
+    'social.pipeline.social_auth.associate_user',  # 6
+    'social.pipeline.social_auth.load_extra_data',  # 7
+    'social.pipeline.user.user_details',  # 8
+]
+# Adding conditional functions to pipepline.
+# NOTE: Sequence of functions matters here.
 #   google credentials
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '170292429057-8f6ji6s17qj2241ogsfc8mqar6n0f6df.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'rawglB_MX5seIHDKXS2GqDHq'
 
 # Github #
 SOCIAL_AUTH_GITHUB_KEY = '9fca0ad5a33911e8aa62'
-SOCIAL_AUTH_GITHUB_SECRET = 'cfd573c7edf314fa3a475e5f150da0a6f371e4e2   '
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+SOCIAL_AUTH_GITHUB_SECRET = 'cfd573c7edf314fa3a475e5f150da0a6f371e4e2'
+# SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+GITHUB_REQUIRE_VERIFIED_EMAIL = True
+
+SOCIAL_AUTH_FACEBOOK_KEY = '118415938743411'
+SOCIAL_AUTH_FACEBOOK_SECRET = '4add1feef01df4e876e962ed2f31130e'
+
+SOCIAL_AUTH_INSTAGRAM_KEY = 'e95aad2dea4c414586b23929ef75c656'
+SOCIAL_AUTH_INSTAGRAM_SECRET = '13e622f595fa423598c8ac085cf5417b'
 
 LOGIN_URL = '/didnotguess/login'
 LOGOUT_URL = '/didnotguess/login'
