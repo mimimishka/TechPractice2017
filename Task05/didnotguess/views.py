@@ -105,8 +105,8 @@ def statistics(request):
 def gen_random_number(request):
     return generator_view(request, 'gen_random_number', True)
 
-def gen_random_number_list(request):
-    return generator_view(request, 'gen_random_number_list', False)
+def gen_number_list(request):
+    return generator_view(request, 'gen_number_list', False)
 
 def get_random_word_from_text(request):
     return generator_view(request, 'get_random_word_from_text', False)
@@ -127,7 +127,7 @@ def execution(request):
         request.session['result'] = random.randint(-10000,10000)
         return redirect('didnotguess:%s' % type)
     else:
-        if type == "gen_random_number_list":
+        if type == "gen_number_list":
             try:
                 from_val = request.POST['from']
                 to_val = request.POST['to']

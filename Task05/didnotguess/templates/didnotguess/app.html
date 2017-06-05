@@ -3,7 +3,7 @@
     <p>{{ result }}</p>
     <a href="{% url 'didnotguess:execution' %}">Generate number</a>
 {% else %}
-    {% if type == 'gen_random_number_list' %}
+    {% if type == 'gen_number_list' %}
         {% if result %}
         <ul>
         {% for num in result %}
