@@ -128,20 +128,6 @@ AUTHENTICATION_BACKENDS = (
 #     'accounts.social_auth_pipeline.get_profile_data', # custom
 #     'accounts.social_auth_pipeline.get_profile_avatar', # custom
 # )
-
-SOCIAL_AUTH_PIPELINE = [  # Note: Sequence of functions matters here.
-    'social.pipeline.social_auth.social_details',  # 0
-    'social.pipeline.social_auth.social_uid',  # 1
-    'social.pipeline.social_auth.auth_allowed',  # 2
-    'social.pipeline.social_auth.social_user',  # 3
-    'social.pipeline.user.get_username',  # 4
-    'social.pipeline.social_auth.associate_by_email',  # 5
-    'social.pipeline.social_auth.associate_user',  # 6
-    'social.pipeline.social_auth.load_extra_data',  # 7
-    'social.pipeline.user.user_details',  # 8
-]
-# Adding conditional functions to pipepline.
-# NOTE: Sequence of functions matters here.
 #   google credentials
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '170292429057-8f6ji6s17qj2241ogsfc8mqar6n0f6df.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'rawglB_MX5seIHDKXS2GqDHq'
