@@ -18,11 +18,11 @@ def index(request):
         req_date = rand_request.request_date.replace(microsecond = 0, second = 0)
         rand_request_string = "You have requested %s at %s on %s" % (rand_request.type.typename, req_date.time(), req_date.date())
     return render(request, 'didnotguess/index.html', {'user': request.user, 'rand_request': rand_request_string})
-    
+
 def login(request):
     message = request.session.pop('login_message', 'Enter name and password to login')
     return render(request, 'didnotguess/login.html', {'message': message})
-    
+
 def loginuser(request):
     try:
         name = request.POST['username']
@@ -37,13 +37,13 @@ def loginuser(request):
         else:
             request.session['login_message'] = 'Username or/and Password are incorrect'
             return redirect('didnotguess:login')
-            
+
 def registration(request):
     error = request.session.pop('registration_error', None)
     return render(request, 'didnotguess/registration.html', { 'error': error })
-    
+
 def registrationuser(request):
-    try: 
+    try:
         name = request.POST['username']
         password = request.POST['userpassword']
         confirm = request.POST['confirmpassword']
@@ -62,11 +62,11 @@ def registrationuser(request):
         else:
             request.session['registration_error'] = 'User with this name already exists'
             return redirect('didnotguess:registration')
-            
+
 def logout(request):
     auth_logout(request)
     return redirect('didnotguess:login')
-    
+
 def generator_view(request, type, result_is_necessary):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
@@ -80,13 +80,13 @@ def generator_view(request, type, result_is_necessary):
     else:
         record_request(request, type)
         return render(request, 'didnotguess/app.html', {'type': type, 'result': result})
-        
+
 def requests_story_current(request):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
     requests = UserRequest.objects.filter(user=request.user)
     return render(request, 'didnotguess/requests.html', {'requests': requests, 'all': False})
-    
+
 def requests_story_all(request):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
@@ -107,16 +107,16 @@ def gen_random_number(request):
 
 def gen_random_number_list(request):
     return generator_view(request, 'gen_random_number_list', False)
-    
+
 def get_random_word_from_text(request):
     return generator_view(request, 'get_random_word_from_text', False)
 
 def gen_random_password(request):
     return generator_view(request, 'gen_random_password', True)
-    
+
 def gen_random_password_list(request):
     return generator_view(request, 'gen_random_password_list', False)
-    
+
 def execution(request):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
@@ -126,7 +126,7 @@ def execution(request):
     if type == 'gen_random_number':
         request.session['result'] = random.randint(-10000,10000)
         return redirect('didnotguess:%s' % type)
-    else: 
+    else:
         if type == "gen_random_number_list":
             try:
                 from_val = request.POST['from']
@@ -166,8 +166,8 @@ def execution(request):
                                 result.append(random_password())
                             request.session['result'] = result
                             return redirect('didnotguess:%s' % type)
-                
-                
+
+
 def random_password():
     alphabet = string.ascii_letters + string.digits + "!@#$%^&*()_+~"
     length = random.randint(8, 20)
@@ -175,8 +175,8 @@ def random_password():
     for index in range(length):
         ind = random.randint(0, len(alphabet) - 1)
         password += alphabet[ind]
-    return password       
-    
+    return password
+
 def record_request(request, type):
     r_type = RequestType.objects.get(typename=type)
     record = UserRequest(user=request.user, type=r_type, request_date=timezone.now())
