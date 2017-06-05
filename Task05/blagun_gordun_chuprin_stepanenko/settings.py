@@ -113,8 +113,25 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'social.backends.github.GithubOAuth2',
+    'social.backends.instagram.InstagramOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     # 'django.contrib.auth.backends.ModelBackend',
+)
+
+# may be commented
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
 )
 
 #   google credentials
@@ -123,8 +140,15 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'rawglB_MX5seIHDKXS2GqDHq'
 
 # Github #
 SOCIAL_AUTH_GITHUB_KEY = '9fca0ad5a33911e8aa62'
-SOCIAL_AUTH_GITHUB_SECRET = 'cfd573c7edf314fa3a475e5f150da0a6f371e4e2   '
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+SOCIAL_AUTH_GITHUB_SECRET = 'cfd573c7edf314fa3a475e5f150da0a6f371e4e2'
+# SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+# GITHUB_REQUIRE_VERIFIED_EMAIL = True
+
+SOCIAL_AUTH_FACEBOOK_KEY = '118415938743411'
+SOCIAL_AUTH_FACEBOOK_SECRET = '4add1feef01df4e876e962ed2f31130e'
+
+SOCIAL_AUTH_INSTAGRAM_KEY = 'e95aad2dea4c414586b23929ef75c656'
+SOCIAL_AUTH_INSTAGRAM_SECRET = '13e622f595fa423598c8ac085cf5417b'
 
 LOGIN_URL = '/didnotguess/login'
 LOGOUT_URL = '/didnotguess/login'
