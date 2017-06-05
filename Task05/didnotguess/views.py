@@ -3,13 +3,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
-import random, secrets, string
+from .models import UserRequest, RequestType
+from django.utils import timezone
+import random, string
 
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
-    return render(request, 'didnotguess/index.html', {'user': request.user})
+    user_requests = UserRequest.objects.filter(user=request.user)
+    if len(user_requests) > 0:
+        rand_request = user_requests[random.randint(0, len(user_requests) - 1)]
+        req_date = rand_request.request_date.replace(microsecond = 0, second = 0)
+        rand_request_string = "You have requested %s at %s on %s" % (rand_request.type.typename, req_date.time(), req_date.date())
+    return render(request, 'didnotguess/index.html', {'user': request.user, 'rand_request': rand_request_string})
     
 def login(request):
     message = request.session.pop('login_message', 'Enter name and password to login')
@@ -70,7 +77,29 @@ def generator_view(request, type, result_is_necessary):
         else:
             return render(request, 'didnotguess/app.html', {'type': type})
     else:
+        record_request(request, type)
         return render(request, 'didnotguess/app.html', {'type': type, 'result': result})
+        
+def requests_story_current(request):
+    if not request.user.is_authenticated:
+        return redirect('didnotguess:login')
+    requests = UserRequest.objects.filter(user=request.user)
+    return render(request, 'didnotguess/requests.html', {'requests': requests, 'all': False})
+    
+def requests_story_all(request):
+    if not request.user.is_authenticated:
+        return redirect('didnotguess:login')
+    requests = UserRequest.objects.all()
+    return render(request, 'didnotguess/requests.html', {'requests': requests, 'all': True})
+
+def statistics(request):
+    if not request.user.is_authenticated:
+        return redirect('didnotguess:login')
+    all_requests_count = len(UserRequest.objects.filter(user = request.user))
+    type_requests = []
+    for t in RequestType.objects.all():
+        type_requests.append("%s : %s" % (t.typename, len(UserRequest.objects.filter(type = t, user = request.user))))
+    return render(request, 'didnotguess/statistics.html', {'all_requests_count': all_requests_count, 'type_requests': type_requests, 'username': request.user.username})
 
 def gen_random_number(request):
     return generator_view(request, 'gen_random_number', True)
@@ -145,4 +174,9 @@ def random_password():
     for index in range(length):
         ind = random.randint(0, len(alphabet) - 1)
         password += alphabet[ind]
-    return password                
+    return password       
+    
+def record_request(request, type):
+    r_type = RequestType.objects.get(typename=type)
+    record = UserRequest(user=request.user, type=r_type, request_date=timezone.now())
+    record.save()

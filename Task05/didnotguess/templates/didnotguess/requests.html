@@ -1,0 +1,30 @@
+<a href="{% url 'didnotguess:index' %}">Back</a>
+{% if not requests %}
+    <p>No requests
+    {% if all %}
+        registered for all users
+    {% else %}
+        registered for you
+    {% endif %}
+    </p>
+{% else %}
+    <p>
+    {% if all %}
+        All users'
+    {% else %}
+        Only your's
+    {% endif %}
+    requests
+    </p><br />
+    <table>
+        <tr><td><strong>Name</strong></td><td><strong>Request type</strong></td><td><strong>Date</strong></td></tr>
+        {% for req in requests %}
+        <tr><td>{{ req.user.username }}</td><td>{{ req.type.typename }}</td><td>{{ req.request_date }}</td></tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% if all %}
+    <a href="{% url 'didnotguess:requests_current' %}">Only mine requests</a>
+{% else %}
+    <a href="{% url 'didnotguess:requests_all' %}">All requests</a>
+{% endif %}

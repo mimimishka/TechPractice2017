@@ -5,5 +5,10 @@
 <a href="{% url 'didnotguess:get_random_word_from_text' %}">Get random word from text</a><br />
 <a href="{% url 'didnotguess:gen_random_password' %}">Generate random password</a><br />
 <a href="{% url 'didnotguess:gen_random_password_list' %}">Generate random password list</a><br />
+<a href="{% url 'didnotguess:requests_all' %}">Requests history</a><br />
+<a href="{% url 'didnotguess:statistics' %}">Statistics</a><br />
 
+{% if rand_request %}
+<p>{{ rand_request }}</p>
+{% endif %}
 <a href="{% url 'didnotguess:logout' %}">Log out</a>

@@ -16,6 +16,9 @@ urlpatterns = [
     url(r'^random_password/$', views.gen_random_password, name="gen_random_password"),
     url(r'^random_password_list/$', views.gen_random_password_list, name="gen_random_password_list"),
     url(r'^execution/$', views.execution, name="execution"),
+    url(r'^requests/all$', views.requests_story_all, name="requests_all"),
+    url(r'^requests/current$', views.requests_story_current, name="requests_current"),
+    url(r'^statistics/$', views.statistics, name="statistics"),
 
     url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
     url(r'^didnotguess/', views.index, name='index')
