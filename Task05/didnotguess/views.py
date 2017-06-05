@@ -12,6 +12,7 @@ def index(request):
     if not request.user.is_authenticated:
         return redirect('didnotguess:login')
     user_requests = UserRequest.objects.filter(user=request.user)
+    rand_request_string = None
     if len(user_requests) > 0:
         rand_request = user_requests[random.randint(0, len(user_requests) - 1)]
         req_date = rand_request.request_date.replace(microsecond = 0, second = 0)
