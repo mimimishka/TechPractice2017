@@ -112,7 +112,7 @@ AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
-
+    'social.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     # 'django.contrib.auth.backends.ModelBackend',
 )
@@ -121,9 +121,14 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '170292429057-8f6ji6s17qj2241ogsfc8mqar6n0f6df.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'rawglB_MX5seIHDKXS2GqDHq'
 
-LOGIN_URL = 'didnotguess/login'
-LOGOUT_URL = 'didnotguess/login'
-LOGIN_REDIRECT_URL = 'didnotguess'
+# Github #
+SOCIAL_AUTH_GITHUB_KEY = '9fca0ad5a33911e8aa62'
+SOCIAL_AUTH_GITHUB_SECRET = 'cfd573c7edf314fa3a475e5f150da0a6f371e4e2   '
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+
+LOGIN_URL = '/didnotguess/login'
+LOGOUT_URL = '/didnotguess/login'
+LOGIN_REDIRECT_URL = '/didnotguess/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

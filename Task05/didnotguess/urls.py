@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^execution/$', views.execution, name="execution"),
 
     url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
+    url(r'^didnotguess/', views.index, name='index')
 ]
