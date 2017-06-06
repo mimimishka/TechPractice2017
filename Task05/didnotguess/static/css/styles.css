@@ -1,0 +1,29 @@
+html {
+	height: 100%;
+}
+body {
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 50px;
+}
+footer {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 40px;
+	padding: 10px 0px;
+	background-color: gainsboro;
+}
+
+a.social-icon { 
+	background: url(/static/img/socials.png);
+	display: inline-block; 
+	width: 40px; 
+	height: 38px;
+    cursor: pointer;
+}
+a.google {background-position: -205px -137px;}
+a.facebook {background-position: -120px -14px;}
+a.github {background-position: -204px -95px;}
+
