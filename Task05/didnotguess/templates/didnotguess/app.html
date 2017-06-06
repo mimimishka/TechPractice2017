@@ -1,58 +1,94 @@
-    <a href="{% url 'didnotguess:index' %}">Back</a> <br />
+{% extends 'base.html' %} 
+
+{% block title %}Results{% endblock %} 
+
+{% block content %}
+    <a href="{% url 'didnotguess:index' %}" class="btn btn-danger" >Back</a> <br />
 {% if type == 'gen_random_number' %}
-    <p>{{ result }}</p>
-    <a href="{% url 'didnotguess:execution' %}">Generate number</a>
+    <h1 class="text-center big-number">{{ result }}</h1>
+    <p class="text-center">
+    <a href="{% url 'didnotguess:execution' %}" class="btn btn-success">Generate another one</a>
+    </p>
 {% else %}
     {% if type == 'gen_number_list' %}
-        {% if result %}
-        <ul>
-        {% for num in result %}
-        <li>{{ num }}</li>
-        {% endfor %}
-        </ul>
-        {% endif %}
+    <div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">    
     <form action="{% url 'didnotguess:execution' %}" method="post">
     {% csrf_token %}
-    <p>Range</p>
-    <input type="number" name="from" id="from" />
-    <label for="from">From</label><br />
-    <input type="number" name="to" id="to" />
-    <label for="to">To</label><br />
-    <input type="submit" value="Generate number list in range" /><br />
+    <p class="text-center">Range</p>
+    <div class="form-group">
+    <label for="from">From:</label><br />
+    <input type="number" class="form-control" name="from" id="from" />
+    </div>
+    <div class="form-group">
+    <label for="to">To:</label><br />
+    <input type="number" class="form-control" name="to" id="to" />
+    </div>
+    <p class="text-center">
+    <input type="submit" class="btn btn-success" value="Generate number list in range" />
+    </p>
     </form>
+    </div>
+            {% if result %}
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <ul>
+            {% for num in result %}
+            <li class="pull-left" style="list-style:none; display: block; padding: 5px;">{{ num }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     {% else %}
         {% if type == 'get_random_word_from_text' %}
+        <div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">
             <form action="{% url 'didnotguess:execution' %}" method="post">
                 {% csrf_token %}
-                <label for="text">Text</label>
-                <input type="text" name="text" id="text" /><br />
-                <input type="submit" value="Get random word" /><br />
+                <div class="form-group">
+                <label for="text">Text:</label></br>
+                <input type="text" class="form-control" name="text" id="text" /></br>
+                <input type="submit" class="btn btn-success" value="Get random word" />
+                </div>
             </form>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
             {% if result %}
-                <p>{{ result }}</p>
+                <h1 class="text-center" >{{ result }}</h1>
             {% endif %}
+        </div>
         {% else %}
             {% if type == 'gen_random_password' %}
                 {% if result %}
-                    <p>{{ result }}</p>
+                    <p class="text-center big-number">{{ result }}</p>
                 {% endif %}
-                <a href="{% url 'didnotguess:execution' %}">Generate password</a>
+                <p class="text-center">
+                <a href="{% url 'didnotguess:execution' %}" class="btn btn-success">Generate another one</a>
+                </p>
             {% endif %}
                 {% if type == 'gen_random_password_list' %}
+                    <div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">
+                    <form action="{% url 'didnotguess:execution' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <label for="count">Passwords' count:</label><br />
+                    <input type="number" class="form-control" id="count" name="count" /><br />
+                    </div>
+                    <p class="text-center">
+                    <input type="submit" class="btn btn-success" value="Generate passwords' list" />
+                    </p>
+                    </form>
+                    </div>
+                    <div style="clear:both;"></div>
                     {% if result %}
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                         <ul>
                         {% for passwd in result %}
                         <li>{{ passwd }}</li>
                         {% endfor %}
                         </ul>
+                    </div>
                     {% endif %}
-                    <form action="{% url 'didnotguess:execution' %}" method="post">
-                    {% csrf_token %}
-                    <label for="count">Passwords' count</label><br />
-                    <input type="number" id="count" name="count" /><br />
-                    <input type="submit" value="Generate passwords' list" /><br />
-                    </form>
                 {% endif %}
         {% endif %}
     {% endif %}
 {% endif %}
+
+{% endblock %}

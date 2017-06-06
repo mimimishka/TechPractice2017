@@ -26,4 +26,6 @@ a.social-icon {
 a.google {background-position: -205px -137px;}
 a.facebook {background-position: -120px -14px;}
 a.github {background-position: -204px -95px;}
-
+.big-number{
+	font-size: 100px;
+}

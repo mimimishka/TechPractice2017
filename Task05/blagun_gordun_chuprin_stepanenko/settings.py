@@ -150,7 +150,7 @@ SOCIAL_AUTH_INSTAGRAM_KEY = 'e95aad2dea4c414586b23929ef75c656'
 SOCIAL_AUTH_INSTAGRAM_SECRET = '13e622f595fa423598c8ac085cf5417b'
 
 LOGIN_URL = '/didnotguess/login'
-LOGOUT_URL = '/didnotguess/login'
+LOGOUT_URL = '/didnotguess/logout'
 LOGIN_REDIRECT_URL = '/didnotguess/'
 
 # Internationalization
