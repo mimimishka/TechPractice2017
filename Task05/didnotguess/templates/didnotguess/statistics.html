@@ -1,14 +1,27 @@
-<a href="{% url 'didnotguess:index' %}">Back</a>
+{% extends 'base.html' %} 
+
+{% block title %}Statistics{% endblock %} 
+
+{% block content %}
+<div><a href="{% url 'didnotguess:index' %}" class="btn btn-danger" >Back</a></div>
+<div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">
 <h3>
 {% if all_requests_count %}
-    Total requests' count for {{ username }} is {{ all_requests_count }}
+	 <h2 class="text-center">
+		Total requests' count for {{ username }} is {{ all_requests_count }}
+	</h2>
 {% else %}
     There are no registered requests for {{ username }} yet
 {% endif %}
 </h3><br />
 {% if type_requests %}
+
     <h3>Type requests for {{ username }}</h3>
+    </br>
+    <div class="form-group">
     {% for t_r in type_requests %}
     <p>{{ t_r }}</p><br />
     {% endfor %}
-{% endif %}
+{% endif %}</div>
+{% endblock %}
+</div>

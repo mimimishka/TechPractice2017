@@ -1,4 +1,11 @@
-<a href="{% url 'didnotguess:index' %}">Back</a>
+{% extends 'base.html' %} 
+
+{% block title %}Requests{% endblock %} 
+
+{% block content %}
+<link href="../../static/css/styles.css" rel="stylesheet" type="text/css" />
+
+<div><a href="{% url 'didnotguess:index' %}" class="btn btn-danger" >Back</a>
 {% if not requests %}
     <p>No requests
     {% if all %}
@@ -10,21 +17,26 @@
 {% else %}
     <p>
     {% if all %}
-        All users'
+        <div class="three"><h1>All users'
     {% else %}
-        Only your's
+        <div class="three"><h1>Only your's
     {% endif %}
-    requests
-    </p><br />
-    <table>
+    requests</h1></div>
+    </p></div>
+<div>
+    <table class="tablerequest">
         <tr><td><strong>Name</strong></td><td><strong>Request type</strong></td><td><strong>Date</strong></td></tr>
         {% for req in requests %}
         <tr><td>{{ req.user.username }}</td><td>{{ req.type.typename }}</td><td>{{ req.request_date }}</td></tr>
         {% endfor %}
     </table>
+    </div>
 {% endif %}
 {% if all %}
-    <a href="{% url 'didnotguess:requests_current' %}">Only mine requests</a>
+<p class="text-center"> 
+<a class="btn btn-default" href="{% url 'didnotguess:requests_current' %}">Only mine requests</a></p>
 {% else %}
-    <a href="{% url 'didnotguess:requests_all' %}">All requests</a>
+<p class="text-center">
+    <a href="{% url 'didnotguess:requests_all' %}" class="btn btn-default">All requests</a></p>
 {% endif %}
+{% endblock %}
