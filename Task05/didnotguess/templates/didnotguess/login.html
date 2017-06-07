@@ -1,14 +1,32 @@
-{{ message }}
-<form action="{% url 'didnotguess:loginuser' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" id="name" />
-    <label for="name">Username</label><br />
-    <input type="password" name="userpassword" id="password" />
-    <label for="password">Password</label><br />
-    <input type="submit" value="Log in" /><br />
-</form>
+{% extends 'base.html' %} 
 
-<a href="{% url 'didnotguess:registration' %}">Registration</a><br>
-<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-<a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google+</a><br>
-<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a><br>
+{% block title %}Login{% endblock %} 
+
+{% block content %}
+<div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">
+	<h2 class="text-center">
+		{{ message }}
+	</h2>
+	<form action="{% url 'didnotguess:loginuser' %}" method="post">
+	    {% csrf_token %}
+	    <div class="form-group">
+	    	<label for="name">Username</label>
+		    <input type="text" class="form-control" name="username" id="name" />
+	    </div>
+	    <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" name="userpassword" id="password" />
+	    </div>
+	    <p class="text-center">
+	    	<input type="submit" class="btn btn-success" value="Log in" />
+			<a href="{% url 'didnotguess:registration' %}" class="btn btn-primary">Registration</a>
+	    </p>
+	</form>
+	<hr>
+	<p class="text-center">
+		<a href="{% url 'social:begin' 'github' %}" class="social-icon github"></a>
+		<a href="{% url 'social:begin' 'google-oauth2' %}" class="social-icon google"></a>
+		<a href="{% url 'social:begin' 'facebook' %}" class="social-icon facebook"></a>
+	</p>
+</div>
+{% endblock %}

@@ -77,6 +77,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blagun_gordun_chuprin_stepanenko.wsgi.application'
 
+TEMPLATE_DIRS = ( 
+    os.path.join(os.path.dirname(__file__),
+    'templates').replace('\\','/'), 
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -146,7 +150,7 @@ SOCIAL_AUTH_INSTAGRAM_KEY = 'e95aad2dea4c414586b23929ef75c656'
 SOCIAL_AUTH_INSTAGRAM_SECRET = '13e622f595fa423598c8ac085cf5417b'
 
 LOGIN_URL = '/didnotguess/login'
-LOGOUT_URL = '/didnotguess/login'
+LOGOUT_URL = '/didnotguess/logout'
 LOGIN_REDIRECT_URL = '/didnotguess/'
 
 # Internationalization
@@ -167,3 +171,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+

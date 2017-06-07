@@ -1,13 +1,30 @@
-<form action="{% url 'didnotguess:registrationuser' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" id="name" />
-    <label for="name">Username</label><br />
-    <input type="password" name="userpassword" id="password" />
-    <label for="password">Password</label><br />
-    <input type="password" name="confirmpassword" id="confirmpassword" />
-    <label for="confirmpassword">Confirm password</label>
-    <input type="submit" value="Register!" /><br />
-</form>
+{% extends 'base.html' %} 
+
+{% block title %}Login{% endblock %} 
+
+{% block content %}
+<div class="well auth-block col-xs-12 col-sm-8 col-sm-offset-2">
+	<form action="{% url 'didnotguess:registrationuser' %}" method="post">
+	    {% csrf_token %}
+	    <div class="form-group">
+		    <label for="name">Username</label>
+		    <input type="text" class="form-control" name="username" id="name" />
+	    </div>
+	    <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control"name="userpassword" id="password" />
+	    </div>
+	    <div class="form-group">
+		    <label for="confirmpassword">Confirm password</label>
+		    <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" />
+	    </div>
+	    <p class="text-center">
+	    	<input class="btn btn-success" type="submit" value="Register" />
+	    </p>
+	</form>
+</div>
+
 {% if error %}
 <p>{{ error }}</p>
 {% endif %}
+{% endblock %}

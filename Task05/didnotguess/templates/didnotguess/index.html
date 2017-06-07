@@ -1,3 +1,9 @@
+{% extends 'base.html' %} 
+
+{% block title %}Did not quess{% endblock %} 
+
+{% block content %}
+
 
 {#faceboock sdk script (A.G. 05.06.2017)#}
 <script>
@@ -20,17 +26,53 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<h1>Hello, {{ user.username }}!</h1>
+<h1 class="text-center">Hello, {{ user.username }}!</h1>
 
-<a href="{% url 'didnotguess:gen_random_number' %}">Generate random number</a><br />
-<a href="{% url 'didnotguess:gen_number_list' %}">Generate number list in range</a><br />
-<a href="{% url 'didnotguess:get_random_word_from_text' %}">Get random word from text</a><br />
-<a href="{% url 'didnotguess:gen_random_password' %}">Generate random password</a><br />
-<a href="{% url 'didnotguess:gen_random_password_list' %}">Generate random password list</a><br />
-<a href="{% url 'didnotguess:requests_all' %}">Requests history</a><br />
-<a href="{% url 'didnotguess:statistics' %}">Statistics</a><br />
+<div class="col-xs-12 col-sm-6">
+  <h2 class="text-center">
+    Actions:
+  </h2>
+    <p class="text-center">
+      <a class="btn btn-block btn-default" href="{% url 'didnotguess:gen_random_number' %}">Generate random number</a>
+      </p>
+      <p class="text-center">
+      <a class="btn btn-block btn-default" href="{% url 'didnotguess:gen_number_list' %}">Generate number list in range</a>
+      </p>
+      <p class="text-center">
+      <a class="btn btn-block btn-default" href="{% url 'didnotguess:get_random_word_from_text' %}">Get random word from text</a>
+      </p> 
+      <p class="text-center">
+      <a class="btn btn-block btn-default" href="{% url 'didnotguess:gen_random_password' %}">Generate random password</a>
+      </p>
+      <p class="text-center">
+      <a class="btn btn-block btn-default" href="{% url 'didnotguess:gen_random_password_list' %}">Generate random password list</a>
+    </p>  
+</div>
+<div class="col-xs-12 col-sm-6">
+  <h2 class="text-center">
+    You are also able to:
+  </h2>
+  <p class="text-center">
+    <a class="btn btn-block btn-primary" href="{% url 'didnotguess:requests_all' %}">Requests history</a>
+  </p>
+  <p class="text-center">
+    <a class="btn btn-block btn-default" href="{% url 'didnotguess:statistics' %}">View statistics</a>
+  </p>
+</div>
+<div class="col-xs-12">
+  <h3 class="text-center">Random action from history:</h3>
+  <p class="text-center">
+    {% if rand_request %}
+    {{ rand_request }}
+    {% endif %}
+  </p>
+</div>
+<div class="col-xs-12">
+  <h4 class="text-center">Enough?</h4>
+  <p class="text-center">
+    <a class="btn btn-danger" href="{% url 'didnotguess:logout' %}">Log out</a>
+  </p>
+</div>
 
-{% if rand_request %}
-<p>{{ rand_request }}</p>
-{% endif %}
-<a href="{% url 'didnotguess:logout' %}">Log out</a>
+
+{% endblock %}
