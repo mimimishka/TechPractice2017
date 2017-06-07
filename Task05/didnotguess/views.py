@@ -134,9 +134,13 @@ def execution(request):
             except (KeyError):
                 return redirect("didnotguess:%s" % type)
             else:
-                result = []
+                list = []
                 for index in range(int(from_val),int(to_val)+1):
-                    result.append(index)
+                    list.append(index)
+                list_len = len(list)
+                result = []
+                for index in range(list_len):
+                    result.append(list.pop(random.randint(0, len(list) - 1)))
                 request.session['result'] = result
                 return redirect("didnotguess:%s" % type)
         else:
@@ -146,7 +150,7 @@ def execution(request):
                 except (KeyError):
                     return redirect("didnotguess:%s" % type)
                 else:
-                    words = text.split()
+                    words = text.split(' ')
                     ind = random.randint(0, len(words) - 1)
                     request.session['result'] = words[ind]
                     return redirect('didnotguess:%s' % type)
